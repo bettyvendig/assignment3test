@@ -77,13 +77,10 @@
      
     
         //MenuSearchService.getMenuCategories();
-        menu.found = MenuSearchService.narrowFunction();
+        menu.found = MenuSearchService.narrowAllFunction();
 
-        $scope.narrowFunction = function () {
-
-            MenuSearchService.narrowFunction();
-        };
-
+       
+        /*
         $scope.narrowFunctionxx = function () {
           
            
@@ -100,7 +97,7 @@
                     promise1.then(function (response) {
 
                         response.data.menu_items.forEach(function (item) {
-                            console.log('scope', item.name,'scopeword', $scope.word,'menuword',menu.word);
+                           
                             if (item.name.includes($scope.word)) {
                                 item.insert = { "id": item.id, "name": item.name,"remove":"" };
                                 $scope.items.push(item.insert);
@@ -111,7 +108,7 @@
 
                         $scope.found = $scope.items;
                         menu.found = $scope.items;
-                        console.log('scope.found', menu.found);
+                       
                       
 
 
@@ -126,6 +123,7 @@
 
 
         };
+        */
         
         var promise = MenuSearchService.getMenuCategories();
         
@@ -161,8 +159,16 @@
 
         
 
-        menu.found = MenuSearchService.narrowFunction();
-
+     //   menu.found = MenuSearchService.narrowAllFunction();
+        $scope.narrowFunction = function () {
+            console.log('83', $scope.word);
+            MenuSearchService.narrowFunction($scope.word);
+            menu.foundnarrow = MenuSearchService.getitems()
+            console.log('86', menu.foundnarrow);
+            menu.found = menu.foundnarrow;
+            $scope.found = menu.foundnarrow;
+            console.log('87', menu.foundnarrow);
+        };
 
 
             
@@ -177,6 +183,7 @@
         var items = [];
         var thisitem = {};
         var itemshold = [];
+        var narrowitems = [];
 
         service.getMenuCategories = function () {
             var response = $http({
@@ -184,7 +191,7 @@
                 url: (ApiBasePath + "/categories.json")
             })
                 .then(function (finalResult) {
-                    console.log(finalResult);
+
                     items = finalResult;
                     return finalResult;
                 });
@@ -196,41 +203,44 @@
                 url: (ApiBasePath + "/categories.json")
             })
                 .then(function (finalResult) {
-                   
-                   
-                    
-                        finalResult.data.forEach(function (item) {
-                            
-                            var newItem = { id: item.id, name: item.name };
-                            items.push(newItem);
+
+
+
+                    finalResult.data.forEach(function (item) {
+
+                        var newItem = { id: item.id, name: item.name };
+                        items.push(newItem);
 
                     });
                     console.log('236', items);
                 });
-            
+
         };
 
         service.getCategories = function () {
-            console.log("items243", items);
+            // console.log("items243", items);
             return items;
 
         };
-        
+
         service.removeItem = function ($index) {
-            console.log("items243", items);
-            console.log('323', items);
-            console.log('itemsbeforeslice', items);
+            // console.log("items243", items);
+            //  console.log('323', items);
+            //   console.log('itemsbeforeslice', items);
             //items.splice($index, 1);
             items[$index].remove = true;
-            console.log('items',$index, items);
-            console.log('itemsaftersplice', items);
+            //  console.log('items',$index, items);
+            //   console.log('itemsaftersplice', items);
 
-            
+
             return items;
 
         };
 
-
+        service.getitems = function () {
+            console.log('241', items);
+            return narrowitems;
+        };
 
 
 
@@ -261,9 +271,13 @@
 
             return response;
         };
-        service.narrowFunction = function () {
+        service.narrowFunction = function (serviceword) {
+            narrowitems = [];
             items = [];
-            console.log('items', items);
+           // console.log('items267', items);
+            var serviceword = serviceword;
+            console.log('serviceword269', serviceword);
+
 
             var promise = service.getMenuCategories();
 
@@ -271,19 +285,73 @@
                 var categories = response.data;
                 categories.forEach(function (category) {
 
-                    
+
 
                     var promise1 = service.getMenuForCategory(category.short_name);
                     promise1.then(function (response) {
 
                         response.data.menu_items.forEach(function (item) {
-                            var serviceword = "";
+
+                            // console.log('items263', items);
+                            if (item.name.includes(serviceword)) {
+                                console.log('serviceword', serviceword,item.name);
+                                thisitem = { "id": item.id, "name": item.name, "remove":false };
+                                narrowitems.push(thisitem);
+                                //    console.log('264', thisitem);
+                                //   console.log('265', items);
+                                //
+                            }
+
+                        });
+                        // console.log('268itms', itemshold);
+                       // items = itemshold;
+                        
+                      //  console.log('276', items);
+                        items = narrowitems;
+                       
+                      return narrowitems;
+                        
+
+
+
+                    }
+                    );
+                    
+                });
+            })
+                .catch(function (error) {
+                    console.log("Something went terribly wrong.");
+                });
+
+
+        };
+    
+        service.narrowAllFunction = function () {
+            console.log('all');
+            items = [];
+            console.log('items', items);
+            var serviceword = "";
+
+
+            var promise = service.getMenuCategories();
+
+            promise.then(function (response) {
+                var categories = response.data;
+                categories.forEach(function (category) {
+
+
+
+                    var promise1 = service.getMenuForCategory(category.short_name);
+                    promise1.then(function (response) {
+
+                        response.data.menu_items.forEach(function (item) {
+
                             console.log('items263', items);
                             if (item.name.includes(serviceword)) {
                                 thisitem = { "id": item.id, "name": item.name };
                                 itemshold.push(thisitem);
-                                console.log('264', thisitem);
-                                console.log('265', items);
+                              //  console.log('264', thisitem);
+                               // console.log('265', items);
 
                             }
 
@@ -291,7 +359,7 @@
                         console.log('268itms', itemshold);
                         items = itemshold;
                         console.log('276', items);
-                     
+
 
 
                     }
@@ -300,7 +368,7 @@
             })
                 .catch(function (error) {
                     console.log("Something went terribly wrong.");
-           });
+                });
 
 
         };
@@ -315,9 +383,11 @@
             };
 
             return factory;
-        }
+    };
 
-    
+  
+
+
    
    
 
