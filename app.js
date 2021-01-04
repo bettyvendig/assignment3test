@@ -139,7 +139,7 @@
                     response.data.menu_items.forEach(function (item) {
 
                         if (item.name.includes(menu.word)) {
-                            item.insert = { "id": item.id, "name": item.name };
+                            item.insert = { "id": item.id, "name": item.name,"remove":false,"short_name":item.short_name,"description":item.description };
                             menu.items.push(item.insert);
 
                         }
@@ -295,7 +295,7 @@
                             // console.log('items263', items);
                             if (item.name.includes(serviceword)) {
                                 console.log('serviceword', serviceword,item.name);
-                                thisitem = { "id": item.id, "name": item.name, "remove":false };
+                                thisitem = { "id": item.id, "name": item.name, "remove":false, "short_name":item.short_name,"description":item.description };
                                 narrowitems.push(thisitem);
                                 //    console.log('264', thisitem);
                                 //   console.log('265', items);
@@ -343,14 +343,14 @@
 
                     var promise1 = service.getMenuForCategory(category.short_name);
                     promise1.then(function (response) {
-
+                        console.log('346', response.data.menu_items);
                         response.data.menu_items.forEach(function (item) {
 
                             console.log('items263', items);
                             if (item.name.includes(serviceword)) {
-                                thisitem = { "id": item.id, "name": item.name };
+                                thisitem = { "id": item.id, "name": item.name, "remove":false, "short_name":item.short_name,"description":item.description };
                                 itemshold.push(thisitem);
-                              //  console.log('264', thisitem);
+                                console.log('264', thisitem);
                                // console.log('265', items);
 
                             }
