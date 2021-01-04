@@ -1,0 +1,19 @@
+body {
+  font-size: 1.2em;
+}
+#list1, #list2 {
+  float: left;
+}
+#list2 {
+  margin-left: 40px;
+}
+
+.error {
+  color: red;
+}
+button.rightjustify {
+    width: 200px;
+    text-align: center;
+    color: red !important;
+    font-size: 1.2em;
+}

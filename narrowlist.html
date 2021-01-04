@@ -1,0 +1,29 @@
+﻿
+<style>
+    button.rightjustify {
+        color: black;
+       
+        text-align: left;
+        border: black 1px solid;
+        font-size:.6em;
+        
+
+    }
+    .found {
+        padding-top:20px;
+        border: solid black 2px;
+    }
+</style>
+
+
+<br /><br /><br />
+<div class="found">
+    <ul>
+     <!-- <li ng-repeat="item in list.items | orderBy :'name'">{{item.name}}&nbsp;<button ng-click="list.onRemove({index: $index});" class="btn btn-primary rightjustify">remove{{$index}}</button></li>-->
+ <li ng-repeat="item in list.items" ng-hide="item.remove">{{item.name}}&nbsp;<button ng-click="list.onRemove({index: $index});" class="btn btn-primary rightjustify">remove{{$index}}</button></li>
+
+
+    </ul>
+    </div>
+<div>title1{{list.title}}{{$scope.title1}}{{$parent.title1}}</div>
+
