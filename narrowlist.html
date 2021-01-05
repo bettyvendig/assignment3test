@@ -17,13 +17,17 @@
 
 
 <br /><br /><br />
-<div class="found">
-    <ul>
-     <!-- <li ng-repeat="item in list.items | orderBy :'name'">{{item.name}}&nbsp;<button ng-click="list.onRemove({index: $index});" class="btn btn-primary rightjustify">remove{{$index}}</button></li>-->
- <li ng-repeat="item in list.items" ng-hide="item.remove">{{item.name}}&nbsp;{{item.short_name}}&nbsp;<button ng-click="list.onRemove({index: $index});" class="btn btn-primary rightjustify">remove{{$index}}</button></li>
+            <div class="found">
+                <ul>
+                    <!-- <li ng-repeat="item in list.items | orderBy :'name'">{{item.name}}&nbsp;<button ng-click="list.onRemove({index: $index});" class="btn btn-primary rightjustify">remove{{$index}}</button></li>-->
+                    <li ng-repeat="item in list.items" ng-hide="item.remove">{{item.name}}&nbsp;{{item.short_name}}&nbsp;<button ng-click="list.onRemove({index: $index});" class="btn btn-primary rightjustify">remove{{$index}}</button></li>
 
 
-    </ul>
-    </div>
+                </ul>
+                
+                
+                <h1 ng-show="list.noneleft">none left list</h1>
+
+            </div>
 <div>title1{{list.title}}{{$scope.title1}}{{$parent.title1}}</div>
 

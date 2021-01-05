@@ -17,6 +17,9 @@
             scope: {
                 items: '=',
                 onRemove: '&',
+               // noneleft: '@noneleft',
+                noneleft: '=',
+              
               
              
 
@@ -53,12 +56,14 @@
         menu.word = "";
         $scope.word = "";
         var MenuSearchServices = MenuSearchServiceFactory();
-
+        $scope.noneleft = false;
+        $scope.numberremoved = 0;
 
        
         menu.title = "Narrow Down Your Chinese Menu Choice";
         menu.title1 = "title1";
         menu.word = "";
+        menu.noneleft = false;
     
         
         menu.removeItem = function ($index) {
@@ -68,6 +73,15 @@
            // menu.found = $scope.items.data;
           //  menu.found = $scope.items;
             console.log('after remove', menu.found);
+            console.log('length', menu.found.length);
+            $scope.numberremoved += 1;
+            console.log('78',menu.noneleft,$scope.noneleft);
+            console.log('removed', $scope.numberremoved);
+            if ((menu.found.length - $scope.numberremoved) === 0) {
+                $scope.noneleft = true;
+                menu.noneleft = true;
+                console.log('75', menu.noneleft);
+            };
            
             return true;
         };
@@ -165,6 +179,8 @@
             menu.found = menu.foundnarrow;
             $scope.found = menu.foundnarrow;
             console.log('87', menu.foundnarrow);
+            console.log('169', menu.found.length);
+            
         };
 
 
@@ -271,6 +287,7 @@
         service.narrowFunction = function (serviceword) {
             narrowitems = [];
             items = [];
+           
            // console.log('items267', items);
             var serviceword = serviceword;
             serviceword = serviceword.toUpperCase()
