@@ -59,10 +59,7 @@
         menu.title = "Narrow Down Your Chinese Menu Choice";
         menu.title1 = "title1";
         menu.word = "";
-      //  var promise = MenuSearchService.getMenuCategories();
-       // var promise = MenuSearchServices.getMenuCategories();
-       // MenuSearchService.writeMenuCategories();
-        //menu.list = MenuSearchService.getCategories();
+    
         
         menu.removeItem = function ($index) {
             console.log("68", $index);
@@ -276,6 +273,7 @@
             items = [];
            // console.log('items267', items);
             var serviceword = serviceword;
+            serviceword = serviceword.toUpperCase()
             console.log('serviceword269', serviceword);
 
 
@@ -293,7 +291,7 @@
                         response.data.menu_items.forEach(function (item) {
 
                             // console.log('items263', items);
-                            if (item.name.includes(serviceword)) {
+                            if (item.name.toUpperCase().includes(serviceword)) {
                                 console.log('serviceword', serviceword,item.name);
                                 thisitem = { "id": item.id, "name": item.name, "remove":false, "short_name":item.short_name,"description":item.description };
                                 narrowitems.push(thisitem);
